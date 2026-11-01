@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ramen</title>
+  <meta name="description" content="Ramen garde ton ordinateur allumé pendant que Claude travaille. Gratuit pour Mac et Windows.">
+  <meta property="og:title" content="Ramen">
+  <meta property="og:description" content="Ramen garde ton ordinateur allumé pendant que Claude travaille. Gratuit pour Mac et Windows.">
+  <meta property="og:image" content="https://m4tbrn.github.io/ramen/site/assets/scene.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap">
+  <link rel="icon" href="site/assets/favicon.png">
+  <style>
+    @font-face { font-family: 'Ramen Helvetica'; src: local('HelveticaNowDisplay-XBd'), local('Helvetica Now Display XBold'); font-weight: 100 900; }
+    :root {
+      --nuit: #12142a; --indigo: #212649; --ardoise: #404a73; --ambre: #f2a84d;
+      --miel: #ffd185; --creme: #fcedcc; --sauge: #8c9e78; --m: 5px;
+      --marches: polygon(calc(var(--m)*2) 0, calc(100% - var(--m)*2) 0, calc(100% - var(--m)*2) var(--m), calc(100% - var(--m)) var(--m), calc(100% - var(--m)) calc(var(--m)*2), 100% calc(var(--m)*2), 100% calc(100% - var(--m)*2), calc(100% - var(--m)) calc(100% - var(--m)*2), calc(100% - var(--m)) calc(100% - var(--m)), calc(100% - var(--m)*2) calc(100% - var(--m)), calc(100% - var(--m)*2) 100%, calc(var(--m)*2) 100%, calc(var(--m)*2) calc(100% - var(--m)), var(--m) calc(100% - var(--m)), var(--m) calc(100% - var(--m)*2), 0 calc(100% - var(--m)*2), 0 calc(var(--m)*2), var(--m) calc(var(--m)*2), var(--m) var(--m), calc(var(--m)*2) var(--m));
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      background: var(--nuit); color: var(--creme);
+      font-family: 'Ramen Helvetica', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 800; font-synthesis: none; line-height: 1.35;
+    }
+    a { color: inherit; }
+    .page { max-width: 1080px; margin: 0 auto; padding: 28px 16px 64px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .marque { display: flex; align-items: center; gap: 12px; font-size: 26px; text-decoration: none; }
+    .marque img { width: 48px; height: 48px; }
+    .langues { display: flex; background: var(--miel); padding: 3px; gap: 3px; }
+    .langues button { border: 0; cursor: pointer; font: inherit; font-size: 15px; padding: 6px 12px; background: var(--nuit); color: var(--creme); }
+    .langues button.choisie { background: var(--miel); color: var(--nuit); }
+
+    .haut { text-align: center; padding: 56px 0 36px; }
+    h1 { font-size: clamp(32px, 5.4vw, 60px); line-height: 1.08; letter-spacing: -1px; max-width: 900px; margin: 0 auto; }
+    h1 span { color: var(--miel); }
+    .chapo { font-size: clamp(17px, 2.2vw, 21px); color: rgba(252, 237, 204, 0.8); max-width: 640px; margin: 20px auto 0; font-weight: 600; }
+
+    .boutons { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 34px; }
+    .bouton { display: inline-block; text-decoration: none; background: var(--nuit); clip-path: var(--marches); filter: drop-shadow(0 7px 0 #07081a); transition: transform 60ms; }
+    .bouton span { display: block; margin: 5px; padding: 16px 30px; clip-path: var(--marches); background: var(--ambre); color: var(--nuit); font-size: 21px;
+      box-shadow: inset 0 5px 0 rgba(255,255,255,.35), inset 0 -5px 0 rgba(0,0,0,.22); }
+    .bouton.second span { background: var(--indigo); color: var(--creme); box-shadow: inset 0 0 0 3px var(--ardoise), inset 0 5px 0 rgba(255,255,255,.08); }
+    .bouton:hover span { filter: brightness(1.08); }
+    .bouton:active { transform: translateY(7px); }
+    .petit { margin-top: 18px; font-size: 15px; color: rgba(252, 237, 204, 0.6); font-weight: 600; }
+
+    .scene { margin-top: 20px; padding: 6px; background: var(--miel); clip-path: var(--marches); }
+    .scene img { display: block; width: 100%; height: auto; clip-path: var(--marches); image-rendering: pixelated; }
+
+    .atouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
+    .carte { background: var(--indigo); clip-path: var(--marches); box-shadow: inset 0 0 0 3px var(--ardoise); padding: 24px; }
+    .carte h3 { font-size: 21px; color: var(--miel); margin-bottom: 8px; }
+    .carte p { font-size: 16px; font-weight: 600; color: rgba(252, 237, 204, 0.8); }
+
+    .guide { margin-top: 56px; }
+    .guide h2 { font-size: clamp(24px, 3.4vw, 34px); letter-spacing: -0.5px; margin-bottom: 18px; }
+    .guide .colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .guide ol { padding-left: 22px; font-size: 16px; font-weight: 600; color: rgba(252, 237, 204, 0.85); display: grid; gap: 8px; }
+    .guide strong { color: var(--creme); font-weight: 800; }
+
+    @media (max-width: 760px) {
+      .atouts, .guide .colonnes { grid-template-columns: 1fr; }
+      .haut { padding-top: 40px; }
+      .bouton { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="marque" href="./"><img src="site/assets/icone.png" alt="">Ramen</a>
+      <div class="langues"><button data-langue="fr">FR</button><button data-langue="en">EN</button></div>
+    </header>
+
+    <section class="haut">
+      <h1 data-t="titre"></h1>
+      <p class="chapo" data-t="chapo"></p>
+      <div class="boutons">
+        <a id="mac" class="bouton" href="https://github.com/m4tbrn/ramen/releases/latest/download/Ramen-mac.dmg"><span data-t="mac"></span></a>
+        <a id="win" class="bouton" href="https://github.com/m4tbrn/ramen/releases/latest/download/Ramen-win.exe"><span data-t="win"></span></a>
+      </div>
+      <p class="petit" data-t="petit"></p>
+    </section>
+
+    <div class="scene"><img src="site/assets/scene.webp" width="1672" height="941" alt="Ramen dort dans son nid, dans un salon le soir"></div>
+
+    <section class="atouts">
+      <div class="carte"><h3 data-t="a1t"></h3><p data-t="a1"></p></div>
+      <div class="carte"><h3 data-t="a2t"></h3><p data-t="a2"></p></div>
+      <div class="carte"><h3 data-t="a3t"></h3><p data-t="a3"></p></div>
+    </section>
+
+    <section class="guide">
+      <h2 data-t="guideTitre"></h2>
+      <div class="colonnes">
+        <div class="carte"><h3>Mac</h3><ol><li data-t="m1"></li><li data-t="m2"></li><li data-t="m3"></li></ol></div>
+        <div class="carte"><h3>Windows</h3><ol><li data-t="w1"></li><li data-t="w2"></li><li data-t="w3"></li></ol></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const TEXTES = {
+      fr: {
+        titre: "Ramen garde ton ordinateur allumé <span>pendant que Claude travaille.</span>",
+        chapo: "Tu choisis une durée, Ramen s'endort dans son nid, et ton ordinateur ne se met plus en veille tant qu'il dort.",
+        mac: "Télécharger pour Mac", win: "Télécharger pour Windows",
+        petit: "Gratuit. macOS 11 ou plus récent, Windows 10 ou plus récent.",
+        a1t: "Minuteur ou sans limite", a1: "Tu laisses tourner 15 minutes ou 8 heures, ou sans limite avec le temps écoulé affiché.",
+        a2t: "Verrou par code", a2: "Tu peux verrouiller l'écran avec un code : il faut le code pour arrêter Ramen.",
+        a3t: "Français et anglais", a3: "L'app parle les deux langues, et tu changes en un clic en bas à gauche.",
+        guideTitre: "Installer Ramen",
+        m1: "Ouvre <strong>Ramen-mac.dmg</strong> et glisse Ramen dans Applications.",
+        m2: "Au premier lancement, macOS te prévient que l'app ne vient pas de l'App Store.",
+        m3: "Va dans <strong>Réglages Système, Confidentialité et sécurité</strong>, puis clique sur <strong>Ouvrir quand même</strong>.",
+        w1: "Lance <strong>Ramen-win.exe</strong>.",
+        w2: "Si Windows affiche un écran bleu SmartScreen, clique sur <strong>Informations complémentaires</strong>.",
+        w3: "Clique sur <strong>Exécuter quand même</strong>. Ramen s'installe et se lance.",
+      },
+      en: {
+        titre: "Ramen keeps your computer awake <span>while Claude is working.</span>",
+        chapo: "Pick a duration, Ramen falls asleep in his nest, and your computer stays awake for as long as he sleeps.",
+        mac: "Download for Mac", win: "Download for Windows",
+        petit: "Free. macOS 11 or later, Windows 10 or later.",
+        a1t: "Timer or no limit", a1: "Run it for 15 minutes or 8 hours, or with no limit and the elapsed time on screen.",
+        a2t: "Code lock", a2: "Lock the screen with a code: nobody can stop Ramen without it.",
+        a3t: "French and English", a3: "The app speaks both languages, switch in one click at the bottom left.",
+        guideTitre: "Install Ramen",
+        m1: "Open <strong>Ramen-mac.dmg</strong> and drag Ramen into Applications.",
+        m2: "On first launch, macOS warns you that the app is not from the App Store.",
+        m3: "Go to <strong>System Settings, Privacy &amp; Security</strong>, then click <strong>Open Anyway</strong>.",
+        w1: "Run <strong>Ramen-win.exe</strong>.",
+        w2: "If Windows shows a blue SmartScreen window, click <strong>More info</strong>.",
+        w3: "Click <strong>Run anyway</strong>. Ramen installs and starts.",
+      },
+    };
+    function langue(l) {
+      document.documentElement.lang = l;
+      document.querySelectorAll('[data-t]').forEach((el) => { el.innerHTML = TEXTES[l][el.dataset.t]; });
+      document.querySelectorAll('[data-langue]').forEach((b) => b.classList.toggle('choisie', b.dataset.langue === l));
+      try { localStorage.setItem('langue', l); } catch {}
+    }
+    let choix = null;
+    try { choix = localStorage.getItem('langue'); } catch {}
+    langue(choix || (navigator.language.toLowerCase().startsWith('fr') ? 'fr' : 'en'));
+    document.querySelectorAll('[data-langue]').forEach((b) => { b.onclick = () => langue(b.dataset.langue); });
+    // Le bouton du système de la personne passe en premier et en ambre.
+    if (/Win/.test(navigator.platform) || /Windows/.test(navigator.userAgent)) {
+      const mac = document.getElementById('mac'), win = document.getElementById('win');
+      mac.classList.add('second'); win.after(mac);
+    } else {
+      document.getElementById('win').classList.add('second');
+    }
+  </script>
+</body>
+</html>
